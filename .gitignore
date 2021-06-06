@@ -1,6 +1,6 @@
 # custom ignore
 cmake-build-debug
-
+.idea
 # Cmake ignore
 CMakeLists.txt.user
 CMakeCache.txt
