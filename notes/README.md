@@ -17,6 +17,9 @@ struct Student{
 # 2 排序题目
 
 ## 2.1 排序模板
+**sort 对于数据默认升序排列**
+
+
 排序一般使用 C++ 的sort 函数, 详情看 模板中的排序部分
 ```c++
 //1. 可以全部排序 排序完成之后进行 rank
@@ -26,6 +29,53 @@ rank(stu , 100010);
 //2. 也可以进行部分排序 , 如对 [10, 21) 进行排序, 再rank
 std::sort(&stu[10], &stu[21], cmp);
 rank(&stu[10], 10);
+```
+
+### 也有可能根据选择进行排序
+
+```c++
+
+struct Student{
+    int id;
+    char name[12];
+    int score;
+}stu[100010];
+
+//按分数从低到高
+bool id_cmp(Student a, Student b){
+    return a.id < b.id;
+}
+
+//递增字典排序
+bool name_cmp(Student a, Student b){
+    if (strcmp(a.name , b.name) !=0) return strcmp(a.name, b.name) < 0;
+    else return id_cmp(a, b);
+}
+
+//递增字典排序
+bool score_cmp(Student a, Student b){
+    if ( a.score != b.score) return a.score< b.score ;
+    else return id_cmp(a,b);
+}
+
+bool (*cmp(Student a, Student b));
+
+
+bool (* stu_cmp(int c))(Student a, Student b){
+    switch (c) {
+        case 1:
+            return id_cmp;
+        case 2:
+            return name_cmp;
+        case 3:
+            return score_cmp;
+    }
+}
+
+```
+之后可以这么使用
+```c++
+sort(stu, stu + n, stu_cmp(c));
 ```
 
 ## 2.2 排名模板
