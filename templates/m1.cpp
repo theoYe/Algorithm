@@ -11,17 +11,17 @@ using namespace std;
 
 int main(){
 
-    int n, c;
+    char c;
+    while((c = getchar()) != EOF){
+        if (c == '\n'){
+            //...如果是回车就做点事情, 如继续读取
 
-    while(cin >> n>>c){
-        for(int i = 0;  i < n; i ++){
-
+        }else{
+            // 如果不是回车就干嘛,
         }
     }
 
-
     int arr[100];
-
     for(int i = 0;  i < 100; i ++){
         arr[i] = 0;
     }

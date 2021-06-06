@@ -13,7 +13,7 @@ struct Student {
 
 // a > b return true
 // a < b return false
-// 这里分数大到小，分数一样， 字典序小的排在前面
+// 这里分数大到小，分数一样， 字典序小的排在前面，即从小到大
 bool cmp(Student a , Student b ){
     if(a.score != b.score ) return a.score > b.score;
     else return strcmp(a.name, b.name);

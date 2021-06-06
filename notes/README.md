@@ -1,4 +1,91 @@
-# 1 数据的定义及类型选择
+# 1 基础
+
+## 1.1 输入输出
+
+### 1. 一般的模板
+一般来说，模板如下
+
+```c++
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+
+int main(){
+
+    int n, c;
+
+    while(cin >> n>>c){
+        for(int i = 0;  i < n; i ++){
+
+        }
+    }
+
+
+    int arr[100];
+
+    for(int i = 0;  i < 100; i ++){
+        arr[i] = 0;
+    }
+    return 0;
+}
+```
+
+### 2. 读取空格
+
+要求读取空格时 cin会无法使用， 这时可以使用 getline(cin, str) 来达到这个目的
+> 注意 str必须是string 类型的
+**更多示例看 `4-1-D.cpp`**
+```c++
+
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    string str;
+    while(getline(cin ,str))
+    {
+        sort(str.begin(), str.end());
+        cout<< str << endl;
+    }
+
+    return 0;
+}
+
+```
+> cin.getline 有时会读取不到数据
+
+>EOF 应该使用 int类型的数据来进行接收！
+
+
+
+### 3. 遇到0终止
+遇到0 终止时，我们可以利用 逗号表达式，来简写
+>逗号表达式的取值为最后一个表达式的取值， 因此这里的取值为 n
+```c++
+    while(cin >> n ,n ){
+        for(int i = 0;  i < n; i ++){
+
+        }
+    }
+
+```
+
+### 4. 复合型的输入
+
+有时输入的数据可能会有些复杂, 但还是通过 `cin>>n ; for(i<n)` 的形式进行读取, 一般来说， 第一个`while(cin>>n)` 只
+放一个 cin>>n ,而不要放 cin>>n>>m , 这样便于做判断，如果有其他的输入，可以写到后面
+
+```c++
+    while(cin >> n,n){
+        cin>> m >> g;
+}
+```
+
+
+## 1.2  数据的定义及类型选择
 
 大多数情况下直接定义一个结构体数组, 此时很多操作都可以直接使用到该数组中，如sort等 
 
@@ -10,6 +97,8 @@ struct Student{
     int score;
 }stu[30010];
 ```
+
+
 
 ## 应该使用数组还是vector? 有什么区别？
 
@@ -80,3 +169,25 @@ sort(stu, stu + n, stu_cmp(c));
 
 ## 2.2 排名模板
 
+
+# 3 哈希
+## 3.1 字符串哈希
+
+
+## 3.2 字符+数字的哈希
+
+
+
+# 4 数值类型判断
+
+## 奇偶判断
+
+```c++
+//奇数
+if( n % 2){
+    arr[odd++] = n;
+//偶数
+}else{
+    arr[9 - even++] = n;
+}
+```
