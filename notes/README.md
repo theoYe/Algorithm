@@ -114,6 +114,28 @@ struct Student{
 
 排序一般使用 C++ 的sort 函数, 详情看 模板中的排序部分
 ```c++
+
+struct Rank{
+    int r; //rank
+    int score;
+};
+
+struct Student: public Rank{
+};
+
+void rank(Rank * rank, int n){
+    rank[0].r = 1;
+    for(int i = 1; i < n ; i ++){
+        if(rank[i].score == rank[i-1].score){
+            rank[i].r = rank[i-1].r;
+        }else{
+            rank[i].r = i + 1;
+        }
+    }
+}
+
+
+
 //1. 可以全部排序 排序完成之后进行 rank
 std::sort(stu, stu + 100010, cmp);  //或者 Student实现 "<"赋值运算符重载
 rank(stu , 100010);
@@ -172,12 +194,78 @@ sort(stu, stu + n, stu_cmp(c));
 
 ## 2.2 排名模板
 
-
 # 3 哈希
-## 3.1 字符串哈希
+
+## 3.1 一般模板
+
+一般直接定义hash函数
+
+```c
+ int hashTable[210] = {0};
+```
+
+
+
+## 3.2 hash函数
+
+
+
+有时可能需要自己实现hash函数 (选择合适的 10000值来确保hash函数不会重叠s)
+
+```c
+//根据值和分组g来确定哈希值
+// 注意哈希值是否有可能重叠！！！！
+int hashFunc(int v, int g){
+    return v  + (g - 1) * 10000;
+}
+
+```
+
+
+
+## 3.1 字符串字母哈希
+
+将纯字母的字符串哈希为整数
+
+```c++
+/*
+ * 将字符串S传唤为整数
+ */
+int hashFunc(char S[], int len){
+    int id =0 ;
+    for(int i =0;i < len;i ++){
+        if(S[i] > 'A' && S[i] <= 'Z'){
+            id = id * 52 + (S[i] - 'A');
+        }else if (S[i] > 'a' && S[i] <= 'z'){
+            id = id * 52 + (S[i] - 'a') + 26;
+        }
+    }
+    return id;
+}
+```
+
+
 
 
 ## 3.2 字符+数字的哈希
+
+```c
+int hashFunc(char S[], int len){
+    int id =0 ;
+    for(int i =0;i < len;i ++){
+        if(S[i] > 'A' && S[i] <= 'Z'){
+            id = id * 62 + (S[i] - 'A');
+        }else if (S[i] > 'a' && S[i] <= 'z'){
+            id = id * 62 + (S[i] - 'a') + 26;
+        }else if (S[i] >= 0 && S[i] <= 9){
+            // 数字
+            id = id * 62 + S[i] + 52;
+        }
+    }
+    return id;
+}
+```
+
 
 
 ## 哈希应用场景
@@ -185,6 +273,19 @@ sort(stu, stu + n, stu_cmp(c));
 - 去除 A 中含有 B的元素 (4-2-D)
 - 计算含有相同元素的个数
 - 非A即B的关系 （如LeetCode  两数之和）
+- 计算分组
+
+
+
+# 4 递归
+
+
+
+
+
+
+
+
 
 # 4 数值类型判断
 
