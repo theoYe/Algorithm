@@ -9,7 +9,13 @@ const int maxn = 11;
 // P[maxn] 存放每个排列
 // hashTable : 存放该排列中该数字是否已经出现过
 int n, P[maxn], hashTable[maxn] = {false};
+// a > b return true
+// a < b return false
+// 这里分数大到小，分数一样， 字典序小的排在前面，即从小到大
+bool cmp(int * a , int * b ){
 
+
+}
 int count = 0;
 void generateP(int index){
     if(index == n+1){

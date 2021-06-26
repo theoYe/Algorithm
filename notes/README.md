@@ -118,25 +118,6 @@ struct Student{
 
 ```c++
 
-struct Rank{
-    int r; //rank
-    int score;
-};
-
-struct Student: public Rank{
-};
-
-void rank(Rank * rank, int n){
-    rank[0].r = 1;
-    for(int i = 1; i < n ; i ++){
-        if(rank[i].score == rank[i-1].score){
-            rank[i].r = rank[i-1].r;
-        }else{
-            rank[i].r = i + 1;
-        }
-    }
-}
-
 
 
 //1. 可以全部排序 排序完成之后进行 rank
@@ -196,6 +177,36 @@ sort(stu, stu + n, stu_cmp(c));
 ```
 
 ## 2.2 排名模板
+
+
+
+如果需要根据分数进行排序，下面是解决方案
+
+```c++
+
+struct Rank{
+    int r; //rank
+    int score;
+};
+
+struct Student: public Rank{
+};
+
+void rank(Rank * rank, int n){
+    rank[0].r = 1;
+    for(int i = 1; i < n ; i ++){
+        if(rank[i].score == rank[i-1].score){
+            rank[i].r = rank[i-1].r;
+        }else{
+            rank[i].r = i + 1;
+        }
+    }
+}
+
+```
+
+
+
 
 
 # 3 哈希
@@ -284,6 +295,119 @@ int hashFunc(char S[], int len){
 
 
 # 4 递归
+
+
+
+## 4.1 斐波那契数列
+
+
+
+我们可以获得斐波那契数列的值，在计算时加入如下
+
+```c++
+
+int arr[1001] = {0} ;
+
+int Fibonacci(int n){
+    if(n==0) { return 0; }
+    if(n==1) return 1;
+    int n2 = Fibonacci(n- 2);
+    int n1 = Fibonacci(n- 1);
+    arr[n -2] = n2;
+    arr[n-1] = n1;
+    return n2 + n1;
+}
+```
+
+
+
+
+
+## 4.2 全排列问题
+
+
+
+
+
+```c++
+#include <cstdio>
+
+const int maxn = 11;
+// P[maxn] 存放每个排列
+// hashTable : 存放该排列中该数字是否已经出现过
+int n, P[maxn], hashTable[maxn] = {false};
+
+void generateP(int index){
+    if(index == n+1){
+        for(int i = 1; i <= n; i ++){
+            printf("%d", P[i]);
+        }
+        printf("\n");
+        return ;
+    }
+
+    for(int x = 1; x <= n; x++){
+        if(hashTable[x] == false){
+            P[index] = x;   //p[1] = 1 p[1] =2 , p[3] = 3
+            hashTable[x] = true;
+            generateP(index  + 1);  //generateP(2) generateP(2) generateP(2)
+            hashTable[x] = false;
+        }
+    }
+}
+
+```
+
+
+
+
+
+## 4.3 生成排列
+
+
+
+下面函数生成start - end 之间的排列数, 长度为n=l, (l为迭代变量)
+
+
+
+```c
+//生成数字 start-end 的 长度为 l 的排列
+//l 为当前长度(迭代使用的变量), n为数字长度
+void genP(int index,int start, int end, int n, int l){
+    //长度满足 (操作排列)
+    if(l==0){
+        for(int i=1 ;i <=n;i++){
+             arr[P[index-i]]; // do something to number
+        }
+    }
+
+    for(int i= start; i <= end ; i++){
+        P[index] = i;
+        genP(index+1,  i+1,end,n,l-1);
+    }
+}
+```
+
+
+
+## 4.4 n皇后问题
+
+
+
+1. 利用全排列解决n皇后问题  (templates/n_queen.cpp)
+2. 保存n皇后问题的数据   (4-3-D.cpp)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
