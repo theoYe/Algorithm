@@ -22,6 +22,7 @@ void generateP(int index){
         bool  flag = true;
         for(int i = 1; i <= n; i ++){
             for(int j = i + 1; j <=n;j++){
+                //判断 (行 - 列) 是否等于 (列 - 行)
                 if(abs(i - j) == abs(P[i] - P[j])){
                     flag = false;  //不合法
                 }

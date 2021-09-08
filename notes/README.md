@@ -108,7 +108,13 @@ struct Student{
 
 ## 2.1 排序模板
 
-**sort 对于数据默认升序排列**
+**sort 对于数据默认升序排列** ,在 `algorithm` 命名空间中
+
+```c++
+#include <algorithm>
+```
+
+
 
 排序一般使用 C++ 的sort 函数, 详情看 模板中的排序部分
 
@@ -180,7 +186,7 @@ sort(stu, stu + n, stu_cmp(c));
 
 
 
-如果需要根据分数进行排序，下面是解决方案
+如果需要根据排序好的结果给出具体的排名，相同分数的排名相同，下面是解决方案
 
 ```c++
 
@@ -193,13 +199,17 @@ struct Student: public Rank{
 };
 
 void rank(Rank * rank, int n){
+    //0为排名第1
     rank[0].r = 1;
     for(int i = 1; i < n ; i ++){
+        //从1开始，分数一样则排名相同
+        //否则排名为i+1
         if(rank[i].score == rank[i-1].score){
             rank[i].r = rank[i-1].r;
         }else{
             rank[i].r = i + 1;
         }
+                                 
     }
 }
 
@@ -221,11 +231,11 @@ void rank(Rank * rank, int n){
 
 
 
-## 3.2 hash函数
+## 3.2 普通hash函数
 
 
 
-有时可能需要自己实现hash函数 (选择合适的 10000值来确保hash函数不会重叠s)
+有时可能需要自己实现hash函数 (选择合适的 10000 值来确保hash函数不会重叠s)
 
 ```c
 //根据值和分组g来确定哈希值
@@ -284,7 +294,6 @@ int hashFunc(char S[], int len){
 
 
 
-
 ## 3.3 哈希应用场景
 
 - 去除 A 中含有 B的元素 (4-2-D)
@@ -326,6 +335,22 @@ int Fibonacci(int n){
 ## 4.2 全排列问题
 
 
+
+全排列指 1~n 这些自然数 所能形成的所有排列如
+
+
+
+从递归的角度考虑，输出 1~n 这些数字的全排列，可以被分解为如下子问题：
+
+1. 输出1开头的全排列
+2. 输出2开头的全排列
+3. ...
+4. 输出n开头的全排列
+
+在输出x开头的全排列时，问题可以被分解为：
+
+1. 填入x
+2. 生成除x以外的数字的全排列
 
 
 
@@ -399,6 +424,16 @@ void genP(int index,int start, int end, int n, int l){
 
 
 
+下面判断，全排列 `P[1...maxn] `是否为合法的n皇后问题的解
+
+```c
+for(int j = i + 1; j <=n;j++){
+//判断 (行 - 列) 是否等于 (列 - 行)
+if(abs(i - j) == abs(P[i] - P[j])){
+flag = false;  //不合法
+}
+}
+```
 
 
 
@@ -406,6 +441,34 @@ void genP(int index,int start, int end, int n, int l){
 
 
 
+
+
+
+
+# 5 贪心
+
+贪心即通过局部最优解来找到全局最优解
+
+
+
+## 5.1 一般贪心
+
+
+
+## 5.2 区间贪心
+
+
+
+区间贪心的一般问题是： 给出 N 个 (x,y) 开区间，选择尽可能多个区间数，使得这几个区间两两不相交。
+
+
+
+```
+struct interval{
+	float x;
+	float y
+}
+```
 
 
 

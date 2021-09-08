@@ -26,19 +26,12 @@ int main(){
         for(int i = 0;  i < n; i ++){
             cin >> tv[i].si >> tv[i].ei;
         }
-
-
-
-
         int arr[100];
 
         for(int i = 0;  i < 100; i ++){
             arr[i] = 0;
         }
-
     }
-
-
 
     return 0;
 }
