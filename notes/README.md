@@ -104,11 +104,37 @@ struct Student{
 
 ## 应该使用数组还是vector? 有什么区别？
 
+
+
+
+
+
+
+## 1.2 Cout 输出延迟
+
+
+
+
+
+**cout 具有极大的输出延迟，能不用就不要用，使用printf进行输出！**
+
+
+
 # 2 排序题目
 
 ## 2.1 排序模板
 
 **sort 对于数据默认升序排列** ,在 `algorithm` 命名空间中
+
+
+
+```
+sort的参数： (first, last, function)
+仍然是一个 前闭合后开的区间：  [first,last)
+如果是数组， 那么就是 [start, start+ 数组长度)
+```
+
+
 
 ```c++
 #include <algorithm>
@@ -332,6 +358,18 @@ int Fibonacci(int n){
 
 
 
+
+
+递归要考虑的条件是：
+
+1. 递归出口
+2. 要保存的条件
+3. 岔道口及各个岔道口前进的条件
+
+
+
+
+
 ## 4.2 全排列问题
 
 
@@ -384,6 +422,19 @@ void generateP(int index){
 ```
 
 
+
+如果要保证 输出排列严格按照字典序进行排列， x 应该 从 P[ index - 1] + 1 开始
+
+```c
+    for(int x =  P[ index - 1] + 1 ; x <= n; x++){
+        if(hashTable[x] == false){
+            P[index] = x;   //p[1] = 1 p[1] =2 , p[3] = 3
+            hashTable[x] = true;
+            generateP(index  + 1);  //generateP(2) generateP(2) generateP(2)
+            hashTable[x] = false;
+        }
+    }
+```
 
 
 
@@ -472,9 +523,223 @@ struct interval{
 
 
 
+**总是从左端点最大的区间开始选择，是最优选择，考虑区间相交和区间包含两种情况，无论是(a) 还是 (b) 都应该选择左端点大的那个区间**
 
 
 
+[![h7aC8K.png](https://z3.ax1x.com/2021/09/08/h7aC8K.png)](https://imgtu.com/i/h7aC8K)
+
+
+
+
+
+# 6 二分法
+
+
+
+
+
+## 6.1 基础
+
+
+
+
+
+```c
+int binarySearch(int A[] , int left , int right, int x){
+    while(left <= right){
+        int mid = left + ( right - left  /2;
+        if (A[mid] == x) return mid;
+                          
+        if ()
+
+        
+        
+        
+    }
+    
+}
+
+
+```
+
+## 6.2 返回第一个比 x大的元素
+
+1. 如果 A[mid] > x ,那么说明 位置在 mid处或者是mid 的左侧
+   1. right = mid
+2. 如果 A[mid] <= x ，那么说明位置在 mid 右侧
+   1. left = mid +1
+3. 如果 x 并不存在
+   1. 那么就让 left 一直加 1 直到超出区间返回结果
+
+
+
+
+
+## 6.3 二分应用
+
+
+
+二分法应用的条件是： **函数 存在 递增或者递减的关系，需要找到一个至少关系或者一个相等关系**
+
+
+
+
+
+
+
+# 7 two-pointer
+
+
+
+## 7.1 归并排序
+
+
+
+归并排序基于一个重要的操作： merge ， 将 两个有序的数组合并并且仍然保持有序
+
+
+
+```c
+const int maxn = 100000;
+
+void merge(int A[], int L1 , int R1 , int L2 , int R2){
+    int temp[maxn];
+    int i = L1 , j = L2, index= 0 ;
+    //当 i < R1, j < R2
+    while(i <= R1 && j<=R2){
+        //如果 A[i] <= A[j] , index ++  A[i] 放入 temp [index]
+        if (A[i] <= A[j]) {temp[index++] = A[i++]; }
+        //如果 A[i] > A[j] , index ++ A[j] 放入 temp [index]
+        else {temp[index++] = A[j++]; }
+    }
+
+    while(i <= R1) {temp[index++] = A[i++]; }
+    while(j <= R2) {temp[index++] = A[j++]; }
+
+    for (int k = 0 ; k < index ; k ++){
+        A[L1+k] = temp[k];
+    }
+}
+```
+
+
+
+
+
+在拥有有序操作之后，归并排序的逻辑就很清晰了：
+
+1. 使得数组的 左半边有序
+2. 使得数组 右半边有序
+3. 再把左右两边合并起来
+
+```c
+void merge_sort(int A[] , int left ,int right){
+    if(left <  right){
+        int mid = (left + right) / 2;
+        merge_sort(A , left, mid );
+        merge_sort(A ,mid+1, right);
+        merge(A , left , mid , mid + 1,right );
+    }
+}
+```
+
+
+
+
+
+## 7.2 快速排序
+
+
+
+快速排序基于一个重要操作： 
+
+
+
+
+
+
+
+
+
+
+
+# 5 数学问题
+
+
+
+
+
+## 5.1 
+
+
+
+
+
+
+
+# 6 STL 常用函数
+
+
+
+## 6.1 容器
+
+
+
+
+
+### 注意事项
+
+
+
+1. 容器进行函数参数传递时，执行的是深拷贝
+
+
+
+### 1. vector
+
+
+
+1. vector 定义
+2. vector添加元素
+   1. push_back(value)
+   2. pop_back
+   3. insert( it , value)
+   4. erase(it) , erase(it1, it2 ) : 删除 [it1 , it2) 间的元素
+   5. clear(): 清空元素
+
+
+
+### 2. set
+
+
+
+
+
+set 内部自动递增排序 **只能通过 set<int>::iterator 访问**
+
+
+
+1. insert(value): 插入元素
+2. find(value): 返回迭代器 , 若不存在返回：  [set::end](https://www.cplusplus.com/set::end)
+3. erase(it) , erase(value) , erase( [ it1 ,it2 ) ) 
+4. clear(): 清空元素
+
+
+
+
+
+
+
+### 3. 	★string
+
+
+
+
+
+1. 字典序比较 ： == , != , >= , <=
+2. insert : 插入字符
+3. erase( ) , erase( pos , length)
 
 
 
@@ -491,6 +756,12 @@ if( n % 2){
 //偶数
 }else{
     arr[9 - even++] = n;
+}
+
+//奇数
+if( n & 1){
+//偶数
+}else{
 }
 ```
 
@@ -516,5 +787,23 @@ cin >> m;
 for (int i =0; i < m; i ++){
     
 }
+```
+
+
+
+
+
+## 2. 输出注意 添加 endl
+
+
+
+
+
+在多组数据输入时，大多数情况下，我们输出要添加 `endl `
+
+
+
+```c++
+cout << res << endl;
 ```
 
